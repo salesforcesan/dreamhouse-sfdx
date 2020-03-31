@@ -92,7 +92,7 @@ jobs:
       - run:
           name: Clean Up
           command: |
-              node_modules/sfdx-cli/bin/run force:org:delete -u ciorg -p
+              # node_modules/sfdx-cli/bin/run force:org:delete -u ciorg -p
 
 workflows:
   version: 2
