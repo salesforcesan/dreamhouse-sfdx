@@ -93,7 +93,7 @@ jobs:
       - run:
           name: Clean Up
           command: |
-              node_modules/sfdx-cli/bin/run force:org:delete -u HubOrg -p
+              node_modules/sfdx-cli/bin/run force:org:delete --noprompt --targetusername || true
 
 workflows:
   version: 2
