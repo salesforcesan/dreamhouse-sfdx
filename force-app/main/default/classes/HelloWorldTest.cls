@@ -21,7 +21,7 @@ public class HelloWorldTest {
         //this is a change
         string test = HelloWorld.hello();
 
-        system.assertEquals('Hello from DF18', 'San Hello from DF18');
+        system.assertEquals(test,'Hello from DF18');
 
         Test.stopTest();
 
