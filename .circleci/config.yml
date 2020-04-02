@@ -89,11 +89,6 @@ jobs:
           name: Run Apex Tests
           command: |
               node_modules/sfdx-cli/bin/run force:apex:test:run -u HubOrg -c -r human
-      - run:
-            name: Run Lightning Tests
-            command: | 
-                mkdir ~/tests/lightning
-                
       - run: 
           name: Push to Codecov.io
           command: |
