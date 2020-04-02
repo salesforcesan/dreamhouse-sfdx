@@ -41,28 +41,8 @@ jobs:
           #
           # You can get the sfdxurl via sfdx force:org:display -u yourOrg --json --verbose from your local machine.
           command: |
-              node_modules/sfdx-cli/bin/run force:auth:sfdxurl:store -f assets/sfdxurl.txt -d -a HubOrg  --setdefaultusername
-              node_modules/sfdx-cli/bin/run force:org:create -v HubOrg -s -f config/project-scratch-def.json -a scratch -d 1 --setdefaultusername
-      - run:
-            name: Install Lightning Testing Service
-            command: |
-                node_modules/sfdx-cli/bin/run force:lightning:test:install -t jasmine        
-      - run:
-            name: Run Apex Tests
-            command: |
-                mkdir ~/tests
-                mkdir ~/tests/apex
-                node_modules/sfdx-cli/bin/run force:apex:test:run -u scratch -c -r human -d ~/tests/apex -w 9999
-      - run:
-            name: Run Lightning Tests
-            command: | 
-                mkdir ~/tests/lightning
-                node_modules/sfdx-cli/bin/run force:lightning:test:run -d ~/tests/lightning -r human -a septaTrainsTests.app -o
-      - run: 
-            name: Push to Codecov.io
-            command: |
-                cp ~/tests/apex/test-result-codecoverage.json .
-                bash <(curl -s https://codecov.io/bash)
+              node_modules/sfdx-cli/bin/run force:auth:sfdxurl:store -f assets/sfdxurl.txt -d -a HubOrg
+              node_modules/sfdx-cli/bin/run force:org:create -v HubOrg -s -f config/project-scratch-def.json -a ciorg -d 1 --setdefaultusername
       - persist_to_workspace:
           # This is an important step. If we don't store the project data (cloned GitHub source and node_modules from the CLI installation)
           # we'd have to re-run installation for every workflow step.
@@ -113,8 +93,7 @@ jobs:
       - run:
           name: Clean Up
           command: |
-            #  node_modules/sfdx-cli/bin/run force:org:delete --noprompt --targetusername || true
-
+            node_modules/sfdx-cli/bin/run force:org:delete --noprompt --targetusername || true
 workflows:
   version: 2
   build_and_test:
