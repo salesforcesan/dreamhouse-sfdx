@@ -1,0 +1,3 @@
+<design:component label="SEPTA Train Schedule">
+    <design:attribute name="selectedEntity" label="Train Number" />
+</design:component>

@@ -1,0 +1,11 @@
+<apex:page showHeader="false" standardStylesheets="false">
+    <apex:includeLightning />
+    <div class="slds-m-around_large slds-align_absolute-center" style="height:98vh; width: 98vw;" id="app">
+    </div>
+    <script>
+    	$Lightning.use("c:septaTrainsLightningOutApp", function() {
+            $Lightning.createComponent("c:septaTrainTracker", null, "app", function(cmp) {
+            });
+        });
+    </script>
+</apex:page>

@@ -19,7 +19,9 @@ public class HelloWorldTest {
 
         Test.startTest();
         //this is a change
-        HelloWorld.hello();
+        string test = HelloWorld.hello();
+
+        system.assertEquals('Hello from DF18', 'San Hello from DF18');
 
         Test.stopTest();
 

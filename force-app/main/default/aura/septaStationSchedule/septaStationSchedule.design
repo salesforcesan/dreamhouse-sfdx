@@ -1,0 +1,3 @@
+<design:component label="SEPTA Station Schedule">
+    <design:attribute name="selectedEntity" label="Station" datasource="apex://septaTrainsDesignPicklistProvider" />	
+</design:component>
