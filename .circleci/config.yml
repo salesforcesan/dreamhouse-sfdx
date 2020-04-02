@@ -88,13 +88,7 @@ jobs:
       - run:
           name: Run Apex Tests
           command: |
-              node_modules/sfdx-cli/bin/run force:apex:test:run -u HubOrg -c -r human
-      - run: 
-          name: Push to Codecov.io
-          command: |
-              cp ~/tests/apex/test-result-codecoverage.json .
-              bash <(curl -s https://codecov.io/bash)
-        
+              node_modules/sfdx-cli/bin/run force:apex:test:run -u HubOrg -c -r human      
   cleanup_scratch_org:
     <<: *defaults
     steps:
