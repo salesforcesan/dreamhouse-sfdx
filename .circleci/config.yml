@@ -42,7 +42,11 @@ jobs:
           # You can get the sfdxurl via sfdx force:org:display -u yourOrg --json --verbose from your local machine.
           command: |
               node_modules/sfdx-cli/bin/run force:auth:sfdxurl:store -f assets/sfdxurl.txt -d -a HubOrg  --setdefaultusername
-              node_modules/sfdx-cli/bin/run force:org:create -v HubOrg -s -f config/project-scratch-def.json -a ciorg -d 1 --setdefaultusername
+              node_modules/sfdx-cli/bin/run force:org:create -v HubOrg -s -f config/project-scratch-def.json -a scratch -d 1 --setdefaultusername
+      - run:
+            name: Install Lightning Testing Service
+            command: |
+                node_modules/sfdx-cli/bin/run force:lightning:test:install -t jasmine
       - persist_to_workspace:
           # This is an important step. If we don't store the project data (cloned GitHub source and node_modules from the CLI installation)
           # we'd have to re-run installation for every workflow step.
@@ -85,6 +89,17 @@ jobs:
           name: Run Apex Tests
           command: |
               node_modules/sfdx-cli/bin/run force:apex:test:run -u HubOrg -c -r human
+      - run:
+            name: Run Lightning Tests
+            command: | 
+                mkdir ~/tests/lightning
+                node_modules/sfdx-cli/bin/run force:lightning:test:run -d ~/tests/lightning -r human -a septaTrainsTests.app -o
+      - run: 
+          name: Push to Codecov.io
+          command: |
+              cp ~/tests/apex/test-result-codecoverage.json .
+              bash <(curl -s https://codecov.io/bash)
+        
   cleanup_scratch_org:
     <<: *defaults
     steps:
