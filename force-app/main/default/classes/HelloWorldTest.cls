@@ -21,10 +21,11 @@ public class HelloWorldTest {
         //this is a change
         string test = HelloWorld.hello();
 
-        system.assertEquals(test,'Hello from DF18');
+        
 
         Test.stopTest();
 
+        system.assertEquals(test,'Hello from DF18');
     }
 
 }
